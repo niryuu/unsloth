@@ -254,7 +254,6 @@ class FastLanguageModel(FastLlamaModel):
             tokenizer_name = None
         pass
 
-        original_kwargs = kwargs.copy()
 
         model, tokenizer = dispatch_model.from_pretrained(
             model_name        = model_name,
@@ -269,7 +268,7 @@ class FastLanguageModel(FastLlamaModel):
             tokenizer_name    = tokenizer_name,
             trust_remote_code = trust_remote_code,
             revision          = revision if not is_peft else None,
-            *args, **original_kwargs,
+            *args, **kwargs,
         )
         
         if resize_model_vocab is not None:
@@ -495,7 +494,6 @@ class FastVisionModel(FastBaseVisionModel):
             tokenizer_name = None
         pass
 
-        original_kwargs = kwargs.copy()
 
         model, tokenizer = FastBaseVisionModel.from_pretrained(
             model_name        = model_name,
@@ -508,7 +506,7 @@ class FastVisionModel(FastBaseVisionModel):
             revision          = revision if not is_peft else None,
             model_types       = model_types,
             tokenizer_name    = tokenizer_name,
-            *args, **original_kwargs,
+            *args, **kwargs,
         )
         
         if resize_model_vocab is not None:
